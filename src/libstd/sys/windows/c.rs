@@ -401,6 +401,7 @@ pub enum FILE_INFO_BY_HANDLE_CLASS {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct FILE_BASIC_INFO {
     pub CreationTime: LARGE_INTEGER,
     pub LastAccessTime: LARGE_INTEGER,
@@ -410,6 +411,7 @@ pub struct FILE_BASIC_INFO {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct FILE_STANDARD_INFO {
     pub AllocationSize: LARGE_INTEGER,
     pub EndOfFile: LARGE_INTEGER,
