@@ -2,7 +2,7 @@ use crate::spec::{LinkArgs, LinkerFlavor, TargetOptions};
 use std::default::Default;
 
 pub fn opts() -> TargetOptions {
-    let mut pre_link_args = LinkArgs::new();
+    let mut args = LinkArgs::new();
     // GCC
     // pre_link_args.insert(LinkerFlavor::Gcc, vec![
     //         // Tell GCC to avoid linker plugins, because we are not bundling
@@ -17,7 +17,7 @@ pub fn opts() -> TargetOptions {
     //     ]);
 
     // MSVC
-    pre_link_args.insert(LinkerFlavor::Msvc,
+    args.insert(LinkerFlavor::Msvc,
                 vec!["/NOLOGO".to_string(),
                      "/NXCOMPAT".to_string()]);
 
@@ -39,7 +39,7 @@ pub fn opts() -> TargetOptions {
 
     TargetOptions {
         // FIXME(#13846) this should be enabled for windows
-        function_sections: false,
+        function_sections: true,
         // linker: Some("gcc".to_string()),
         linker: Some("link.exe".to_string()),
         dynamic_linking: true,
@@ -53,24 +53,15 @@ pub fn opts() -> TargetOptions {
         target_family: Some("windows".to_string()),
         is_like_windows: true,
         allows_weak_linkage: false,
-        pre_link_args,
-        // pre_link_objects_exe: vec![
-        //     "crt2.o".to_string(),    // mingw C runtime initialization for executables
-        //     "rsbegin.o".to_string(), // Rust compiler runtime initialization, see rsbegin.rs
-        // ],
-        // pre_link_objects_dll: vec![
-        //     "dllcrt2.o".to_string(), // mingw C runtime initialization for dlls
-        //     "rsbegin.o".to_string(),
-        // ],
-        // late_link_args,
-        // post_link_objects: vec![
-        //     "rsend.o".to_string(),
-        //     "libgcc.a".to_string(), // libgcc or compiler-rt
-        // ],
+        pre_link_args: args,
+        
         // custom_unwind_resume: true,
         abi_return_struct_as_int: true,
         emit_debug_gdb_scripts: false,
         requires_uwtable: true,
+        
+        crt_static_allows_dylibs: true,
+        crt_static_respected: true,
 
         .. Default::default()
     }
