@@ -41,7 +41,7 @@ pub fn opts() -> TargetOptions {
         // FIXME(#13846) this should be enabled for windows
         function_sections: false,
         // linker: Some("gcc".to_string()),
-        linker: Some("msvc".to_string()),
+        linker: Some("link.exe".to_string()),
         dynamic_linking: true,
         executables: false,
         dll_prefix: String::new(),
