@@ -1053,6 +1053,9 @@ extern "system" {
                            lpTargetFileName: LPCWSTR,
                            lpSecurityAttributes: LPSECURITY_ATTRIBUTES)
                            -> BOOL;
+    pub fn GetUserProfileDirectoryW(hToken: HANDLE,
+            lpProfileDir: LPWSTR,
+            lpcchSize: *mut DWORD) -> BOOL;
     #[link_name = "SystemFunction036"]
     pub fn RtlGenRandom(RandomBuffer: *mut u8, RandomBufferLength: ULONG) -> BOOLEAN;
 }
@@ -1145,9 +1148,7 @@ extern "system" {
     pub fn SwitchToThread() -> BOOL;
     pub fn Sleep(dwMilliseconds: DWORD);
     pub fn GetProcessId(handle: HANDLE) -> DWORD;
-    pub fn GetUserProfileDirectoryW(hToken: HANDLE,
-                                    lpProfileDir: LPWSTR,
-                                    lpcchSize: *mut DWORD) -> BOOL;
+    
     pub fn CopyFileExW(lpExistingFileName: LPCWSTR,
                        lpNewFileName: LPCWSTR,
                        lpProgressRoutine: LPPROGRESS_ROUTINE,
