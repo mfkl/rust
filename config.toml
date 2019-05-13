@@ -121,6 +121,7 @@ targets = "X86"
 # triple and then will continue to bootstrap themselves. This platform must
 # currently be able to run all of the triples provided here.
 #host = ["i686-pc-uwp-gnu"]   # defaults to just the build triple
+host = ["x86_64-pc-uwp-msvc"]   # defaults to just the build triple
 
 # In addition to all host triples, other triples to produce the standard library
 # for. Each host triple will be used to produce a copy of the standard library
