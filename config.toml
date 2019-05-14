@@ -114,7 +114,7 @@ targets = "X86"
 # binaries of this build triple and the nightly will be used to bootstrap the
 # first compiler.
 #build = "x86_64-unknown-linux-gnu"    # defaults to your host platform
-#build = "x86_64-pc-uwp-msvc"
+build = "x86_64-pc-windows-msvc"
 
 # In addition to the build triple, other triples to produce full compiler
 # toolchains for. Each of these triples will be bootstrapped from the build
@@ -134,6 +134,7 @@ target = ["x86_64-pc-windows-msvc", "x86_64-pc-uwp-msvc"]
 # this Cargo binary instead to build all Rust code
 #cargo = "/path/to/bin/cargo"
 #cargo = "/home/chouquette/dev/cargo/target/debug/cargo"
+cargo = "C:\\Users\\Martin\\Projects\\tmp\\cargo\\target\\release\\cargo.exe"
 
 # Instead of downloading the src/stage0.txt version of the compiler
 # specified, use this rustc binary instead as the stage0 snapshot compiler.
@@ -305,13 +306,13 @@ prefix = "/opt/rust"
 
 # Whether or not debug assertions are enabled for the compiler and standard
 # library.
-#debug-assertions = false
+debug-assertions = true
 
 # Whether or not debuginfo is emitted
-#debuginfo = false
+debuginfo = true
 
 # Whether or not line number debug information is emitted
-#debuginfo-lines = false
+debuginfo-lines = true
 
 # Whether or not to only build debuginfo for the standard library if enabled.
 # If enabled, this will not compile the compiler with debuginfo, just the
@@ -433,7 +434,7 @@ prefix = "/opt/rust"
 # Each of the following options is scoped to the specific target triple in
 # question and is used for determining how to compile each target.
 # =============================================================================
-[target.x86_64-unknown-linux-gnu]
+# [target.x86_64-unknown-linux-gnu]
 
 # C compiler to be used to compiler C code. Note that the
 # default value is platform specific, and if not specified it may also depend on
