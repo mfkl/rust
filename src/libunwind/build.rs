@@ -63,6 +63,7 @@ mod llvm_libunwind {
             // Don't pull in extra libraries on MSVC
             cfg.flag("/Zl");
             cfg.flag("/EHsc");
+            cfg.flag("/APPCONTAINER");
             cfg.define("_CRT_SECURE_NO_WARNINGS", None);
             cfg.define("_LIBUNWIND_DISABLE_VISIBILITY_ANNOTATIONS", None);
         } else {

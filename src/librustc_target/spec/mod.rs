@@ -434,6 +434,7 @@ supported_targets! {
     ("x86_64-pc-windows-gnu", x86_64_pc_windows_gnu),
     ("i686-pc-windows-gnu", i686_pc_windows_gnu),
     ("i686-uwp-windows-gnu", i686_uwp_windows_gnu),
+    ("i686-uwp-windows-msvc", i686_uwp_windows_msvc),
     ("x86_64-uwp-windows-gnu", x86_64_uwp_windows_gnu),
     ("x86_64-uwp-windows-msvc", x86_64_uwp_windows_msvc),
 

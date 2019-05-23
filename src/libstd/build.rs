@@ -40,6 +40,9 @@ fn main() {
         println!("cargo:rustc-link-lib=framework=Foundation");
         println!("cargo:rustc-link-lib=resolv");
     } else if target.contains("uwp") {
+        if target.contains("msvc") {
+            println!("cargo:rustc-link-lib=mincore");    
+        }
         println!("cargo:rustc-link-lib=ws2_32");
         // For BCryptGenRandom
         println!("cargo:rustc-link-lib=bcrypt");

@@ -6,7 +6,8 @@ pub fn opts() -> TargetOptions {
     args.insert(LinkerFlavor::Msvc,
                 vec!["/NOLOGO".to_string(),
                      "/NXCOMPAT".to_string(),
-                     "/APPCONTAINER".to_string()]);
+                     "/APPCONTAINER".to_string(),
+                     "mincore.lib".to_string()]);
 
     TargetOptions {
         function_sections: true,
