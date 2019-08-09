@@ -158,6 +158,24 @@ pub fn get_linker(sess: &Session, linker: &Path, flavor: LinkerFlavor) -> (PathB
         }
     };
 
+    let t = &sess.target.target;
+    if t.linker_flavor == LinkerFlavor::Msvc && t.target_vendor == "uwp" {
+        if let Some(ref tool) = msvc_tool {
+            let original_path = tool.path();
+            if let Some(ref root_lib_path) = original_path.ancestors().skip(4).next() {
+                if t.arch == "aarch64".to_string() {
+                    &linker.include_path(&root_lib_path.join(format!("lib\\arm64\\store")));
+                } else {
+                    &linker.include_path(&root_lib_path.join(format!("lib\\{}\\store", t.arch)));
+                }
+            } else {
+                warn!("MSVC root path lib location not found");
+            }
+        } else {
+            warn!("link.exe not found");
+        }
+    }
+
     // The compiler's sysroot often has some bundled tools, so add it to the
     // PATH for the child.
     let mut new_path = sess.host_filesearch(PathKind::All)
@@ -1028,19 +1046,6 @@ fn link_args<'a, B: ArchiveBuilder<'a>>(cmd: &mut dyn Linker,
 
     cmd.include_path(&fix_windows_verbatim_for_gcc(&lib_path));
 
-    if t.linker_flavor == LinkerFlavor::Msvc && t.target_vendor == "uwp" {
-        let link_tool = windows_registry::find_tool("x86_64-pc-windows-msvc", "link.exe")
-            .expect("no path found for link.exe");
-
-        let original_path = link_tool.path();
-        let root_lib_path = original_path.ancestors().skip(4).next().unwrap();
-        if t.arch == "aarch64".to_string() {
-            cmd.include_path(&root_lib_path.join(format!("lib\\arm64\\store")));
-        } else {
-            cmd.include_path(&root_lib_path.join(format!("lib\\{}\\store", t.arch)));
-        }
-    }
-    
     for obj in codegen_results.modules.iter().filter_map(|m| m.object.as_ref()) {
         cmd.add_object(obj);
     }
